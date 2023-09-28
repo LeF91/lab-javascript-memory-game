@@ -1,18 +1,32 @@
 class MemoryGame {
   constructor(cards) {
+    if (typeof cards === "undefined") {
+      return undefined;
+    }
     this.cards = cards;
-    // add the rest of the class properties here
+    this.pickedCards = [];
+    this.pairsClicked = 0;
+    this.pairsGuessed = 0;
+    this.shuffleCards();
   }
 
   shuffleCards() {
-    // ... write your code here
+    for (let i = this.cards.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+    }
   }
 
   checkIfPair(card1, card2) {
-    // ... write your code here
+    this.pairsClicked += 1;
+    if (card1 === card2) {
+      this.pairsGuessed += 1;
+      return true;
+    }
+    return false;
   }
 
   checkIfFinished() {
-    // ... write your code here
+    return this.pairsGuessed === this.cards.length / 2;
   }
 }
